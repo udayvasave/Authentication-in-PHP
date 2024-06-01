@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="form">
+        <form method="post" action="javascript:void(0);" id="form-sign-up" class="form form-sign-up form--main">
+            <div class="form_data">
+              <header class="form__header">
+                <h1 class="form__title heading h1">Create my account</h1>
+                <p class="form__legend">Please fill in the information below:</p>
+              </header>
+              <div class="form__input-wrapper form__input-wrapper--labelled">
+                <input type="text" id="full_name" class="form__field form__field--text" name="name" autocomplete="given-name" required="required">
+                <label for="full_name" class="form__floating-label">Name</label>
+              </div>
+    
+              <div class="form__input-wrapper form__input-wrapper--labelled">
+                <input type="text" id="mobile" class="form__field form__field--text" name="mobile" autocomplete="tel" required="required">
+                <label for="mobile" class="form__floating-label">Mobile</label>
+              </div>
+    
+              <div class="form__input-wrapper form__input-wrapper--labelled">
+                <input type="email" id="email" class="form__field form__field--text" name="email" autocomplete="email" required="required">
+                <label for="email" class="form__floating-label">Email</label>
+              </div>
+    
+              <!-- <div class="form__input-wrapper form__input-wrapper--labelled">
+                <select style="height:45px;" id="license-type" class="form-control seller_type form__field form__field--text" name="Select_License" onchange="showInputField()">
+                  <option value="null">Choose any one</option>
+                  <option value="gstin">GSTIN NO</option>
+                  <option value="food-license">Food License No</option>
+                </select>
+              </div>
+    
+              <div class="form__input-wrapper form__input-wrapper--labelled enterGSTINno">
+                <input type="text" id="gstin" class="form__field form__field--text" name="gstin" autocomplete="off" required>
+                <label for="gstin" class="form__floating-label">Enter GSTIN No</label>
+              </div>
+    
+              <div class="form__input-wrapper form__input-wrapper--labelled enterFoodLiceseNo">
+                <input type="text" id="food-license" class="form__field form__field--text" name="food_license" autocomplete="off" required>
+                <label for="food-license" class="form__floating-label">Enter Food License Number</label>
+              </div> -->
+    
+              <div class="form__input-wrapper form__input-wrapper--labelled">
+                <input type="password" id="password" class="form__field form__field--text" name="password" required="required" autocomplete="new-password">
+                <label for="password" class="form__floating-label">Password</label>
+              </div>
+    
+              <button type="submit" onclick="submitForm()" class="form__submit button button--primary button--full send_otp">Create My Account</button>
+            </div>
+    
+            <!-- <div class="otp_section">
+              <header class="form__header">
+                <h1 class="form__title heading h1">Verify OTP</h1>
+                <p class="form__legend">OTP sent to your Mobile number</p>
+              </header>
+    
+              <div class="form__input-wrapper form__input-wrapper--labelled">
+                <input type="text" id="otp" class="form__field form__field--text" name="otp" autocomplete="one-time-code" required="required">
+                <label for="otp" class="form__floating-label">Enter OTP</label>
+              </div>
+    
+              <button type="submit" class="form__submit button button--primary button--full verify_btn">Verify OTP</button>
+            </div>
+    
+            <div class="form__secondary-action">
+              <p>Already have an account? <a href="login" class="link link--accented">Login here</a></p> -->
+            </div>
+          </form>
+    </div>
+    <style>
+        .enterGSTINno, .enterFoodLiceseNo {
+          display: none;
+          margin-top: 10px;
+        }
+      </style>
+      <script>
+        function showInputField() {
+          document.querySelector('.enterGSTINno').style.display = 'none';
+          document.querySelector('.enterFoodLiceseNo').style.display = 'none';
+          const selectedOption = document.getElementById('license-type').value;
+          if (selectedOption === 'gstin') {
+            document.querySelector('.enterGSTINno').style.display = 'block';
+          } else if (selectedOption === 'food-license') {
+            document.querySelector('.enterFoodLiceseNo').style.display = 'block';
+          }
+        }
+      </script>
+
+     <script>
+        async function submitForm(){
+          const form = document.getElementById('form-sign-up');
+          const formData = new FormData(form);
+
+          const response = await fetch('../Backend/SignUp.php',{
+            method:"POST",
+            body:formData,
+          });
+
+          const result = await response.text();
+          alert(result);
+        }
+
+      </script>
+</body>
+</html>
