@@ -53,8 +53,8 @@
     
               <button type="submit" onclick="submitForm()" class="form__submit button button--primary button--full send_otp">Create My Account</button>
             </div>
-    
-            <!-- <div class="otp_section">
+    <!-- /////////////////////////////////     OTP SECTION      ////////////////////////////////////////////////////// -->
+            <div class="otp_section">
               <header class="form__header">
                 <h1 class="form__title heading h1">Verify OTP</h1>
                 <p class="form__legend">OTP sent to your Mobile number</p>
@@ -69,15 +69,17 @@
             </div>
     
             <div class="form__secondary-action">
-              <p>Already have an account? <a href="login" class="link link--accented">Login here</a></p> -->
+              <p>Already have an account? <a href="login" class="link link--accented">Login here</a></p>
             </div>
           </form>
     </div>
+
     <style>
         .enterGSTINno, .enterFoodLiceseNo {
           display: none;
           margin-top: 10px;
         }
+        
       </style>
       <script>
         function showInputField() {
@@ -97,7 +99,7 @@
           const form = document.getElementById('form-sign-up');
           const formData = new FormData(form);
 
-          const response = await fetch('../Backend/SignUp.php',{
+          const response = await fetch('../Backend/sendOTP.php',{
             method:"POST",
             body:formData,
           });
