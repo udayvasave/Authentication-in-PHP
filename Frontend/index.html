@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+  #otp_section{
+    display: none;
+  }
+</style>  
 <body>
     <div class="form">
         <form method="post" action="javascript:void(0);" id="form-sign-up" class="form form-sign-up form--main">
@@ -51,21 +56,22 @@
                 <label for="password" class="form__floating-label">Password</label>
               </div>
     
-              <button type="submit" onclick="submitForm()" class="form__submit button button--primary button--full send_otp">Create My Account</button>
+              <button type="submit" onclick="sendOtp()" id="form1_submit" class="form__submit button button--primary button--full send_otp">Create My Account</button>
             </div>
     <!-- /////////////////////////////////     OTP SECTION      ////////////////////////////////////////////////////// -->
-            <div class="otp_section">
+        
+    <div class="otp_section" id="otp_section">
               <header class="form__header">
-                <h1 class="form__title heading h1">Verify OTP</h1>
+                <h1 class="form__title heading h1 ">Verify OTP</h1>
                 <p class="form__legend">OTP sent to your Mobile number</p>
               </header>
     
               <div class="form__input-wrapper form__input-wrapper--labelled">
-                <input type="text" id="otp" class="form__field form__field--text" name="otp" autocomplete="one-time-code" required="required">
+                <input type="text" id="otp" class="form__field form__field--text" name="OTP" autocomplete="one-time-code" required="required">
                 <label for="otp" class="form__floating-label">Enter OTP</label>
               </div>
     
-              <button type="submit" class="form__submit button button--primary button--full verify_btn">Verify OTP</button>
+              <button type="submit" class="form__submit button button--primary button--full verify_btn" onclick="submitForm()">Verify OTP</button>
             </div>
     
             <div class="form__secondary-action">
@@ -73,14 +79,14 @@
             </div>
           </form>
     </div>
-
+   
     <style>
         .enterGSTINno, .enterFoodLiceseNo {
           display: none;
           margin-top: 10px;
         }
-        
       </style>
+
       <script>
         function showInputField() {
           document.querySelector('.enterGSTINno').style.display = 'none';
@@ -94,18 +100,61 @@
         }
       </script>
 
+    <script>
+      
+      // mainFormBtn.addEventListener('click',()=>{
+        
+      // })
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
      <script>
-        async function submitForm(){
+  
+      async function sendOtp(){
+        event.preventDefault(); 
           const form = document.getElementById('form-sign-up');
           const formData = new FormData(form);
-
+         
           const response = await fetch('../Backend/sendOTP.php',{
             method:"POST",
             body:formData,
           });
 
           const result = await response.text();
+          //alert(result);
+          if(result == '3'){
+            alert("Mobile No already Exist!");
+          }
+          else if(result == '2'){
+            alert("Email Already Exist!");
+          }
+          else if(result == '1'){
+            document.querySelector('.form_data').style.display = 'none';
+          document.querySelector('#otp_section').style.display = 'block';
+          }
+          else{
+            alert("Please try again later!");
+          }
+
+          
+      }
+
+        async function submitForm(e){
+          event.preventDefault(); 
+          const form = document.getElementById('form-sign-up');
+          const formData = new FormData(form);
+         
+          const response = await fetch('../Backend/SignUp.php',{
+            method:"POST",
+            body:formData,
+          });
+
+          const result = await response.text();
           alert(result);
+
+          document.querySelector('.form_data').style.display = 'none';
+          document.querySelector('#otp_section').style.display = 'block';
+          
         }
 
       </script>
